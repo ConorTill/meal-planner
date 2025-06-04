@@ -1,0 +1,107 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/meal-plans": {
+      "get": {
+        "tags": [
+          "Meal Plans"
+        ],
+        "summary": "Get a meal plan",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetMealPlanResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Category": {
+        "enum": [
+          "Starter",
+          "Beverage",
+          "Main",
+          "Lunch",
+          "Salad",
+          "Side",
+          "Dessert"
+        ],
+        "type": "string"
+      },
+      "EffortLevel": {
+        "enum": [
+          "Low",
+          "Medium",
+          "High"
+        ],
+        "type": "string"
+      },
+      "GetMealPlanResponse": {
+        "required": [
+          "mealPlanItems"
+        ],
+        "type": "object",
+        "properties": {
+          "mealPlanItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MealPlanItem"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MealPlanItem": {
+        "required": [
+          "date",
+          "recipe"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "recipe": {
+            "$ref": "#/components/schemas/Recipe"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Recipe": {
+        "required": [
+          "category",
+          "effortLevel",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "effortLevel": {
+            "$ref": "#/components/schemas/EffortLevel"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

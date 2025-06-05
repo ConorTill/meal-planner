@@ -1,9 +1,9 @@
-import type { JSX, PropsWithChildren, ReactElement } from "react";
+import type { PropsWithChildren } from "react";
 import { useGetMealPlansQuery } from "../hooks/useGetMealPlansQuery";
 import { twMerge } from "tailwind-merge";
 
 const WeatherComponent = () => {
-  const { data, isFetching, isPending } = useGetMealPlansQuery();
+  const { data } = useGetMealPlansQuery();
 
   if (!data) {
   }

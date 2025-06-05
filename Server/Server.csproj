@@ -3,6 +3,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<SpaRoot>..\Client</SpaRoot>
+	<DefaultItemExcludes>$(SpaRoot)\node_modules\**</DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
@@ -10,7 +12,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dataContracts\DataContracts.csproj" />
+	<ProjectReference Include="..\Client\Client.esproj">
+		<ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+	</ProjectReference>
+    <ProjectReference Include="..\DataContracts\DataContracts.csproj" />
   </ItemGroup>
   <Target Name="OpenApi" AfterTargets="Build" Condition="$(Configuration)=='Debug'">
     <Exec Command="dotnet tool restore" WorkingDirectory="$(ProjectDir)" />

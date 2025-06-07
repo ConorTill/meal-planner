@@ -18,18 +18,35 @@ namespace Server.Endpoints
             group.MapPost("", CreateRecipe).WithDescription("Create a recipe");
         }
 
-        public static async Task<Ok<GetRecipesResponse>> GetRecipes(MealPlannerDbContext dbContext, CancellationToken cancellationToken)
+        public static async Task<Ok<GetRecipesResponse>> GetRecipes(
+            MealPlannerDbContext dbContext,
+            CancellationToken cancellationToken
+        )
         {
             var recipes = await dbContext.Recipes.ToListAsync(cancellationToken);
-            return TypedResults.Ok(new GetRecipesResponse
-            {
-                Recipes = [.. recipes.Select(recipe => recipe.ToDataContract())]
-            });
+            return TypedResults.Ok(
+                new GetRecipesResponse
+                {
+                    Recipes = [.. recipes.Select(recipe => recipe.ToDataContract())],
+                }
+            );
         }
 
-        public static async Task<Ok<CreateRecipeResponse>> CreateRecipe([FromBody] CreateRecipeRequest request, MealPlannerDbContext dbContext, CancellationToken cancellationToken)
+        public static async Task<Ok<CreateRecipeResponse>> CreateRecipe(
+            [FromBody] CreateRecipeRequest request,
+            MealPlannerDbContext dbContext,
+            CancellationToken cancellationToken
+        )
         {
-            var result = await dbContext.AddAsync(new Recipe { Name = request.Name, Category = request.Category.MapToEnum<Category>(), EffortLevel = request.EffortLevel.MapToEnum<EffortLevel>() }, cancellationToken);
+            var result = await dbContext.AddAsync(
+                new Recipe
+                {
+                    Name = request.Name,
+                    Category = request.Category.MapToEnum<Category>(),
+                    EffortLevel = request.EffortLevel.MapToEnum<EffortLevel>(),
+                },
+                cancellationToken
+            );
             await dbContext.SaveChangesAsync(cancellationToken);
             return TypedResults.Ok(new CreateRecipeResponse(result.Entity.Id));
         }

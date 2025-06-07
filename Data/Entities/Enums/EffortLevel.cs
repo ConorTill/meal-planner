@@ -4,5 +4,5 @@ public enum EffortLevel
 {
     Low,
     Medium,
-    High
+    High,
 }

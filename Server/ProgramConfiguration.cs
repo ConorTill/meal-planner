@@ -24,11 +24,14 @@ internal static class ProgramConfiguration
         );
 
         builder.Services.AddDbContext<MealPlannerDbContext>(options =>
-            options.UseNpgsql(builder.Configuration.GetConnectionString("MealPlannerDbContext"), o =>
-            {
-                o.MapEnum<Category>("category");
-                o.MapEnum<EffortLevel>("effortLevel");
-            })
+            options.UseNpgsql(
+                builder.Configuration.GetConnectionString("MealPlannerDbContext"),
+                o =>
+                {
+                    o.MapEnum<Category>("category");
+                    o.MapEnum<EffortLevel>("effortLevel");
+                }
+            )
         );
     }
 

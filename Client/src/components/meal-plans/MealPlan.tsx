@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { useGetMealPlansQuery } from "../hooks/useGetMealPlansQuery";
+import { useGetMealPlansQuery } from "../../hooks/useGetMealPlansQuery";
 import { twMerge } from "tailwind-merge";
 
 const WeatherComponent = () => {

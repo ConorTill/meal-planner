@@ -8,5 +8,5 @@ public enum Category
     Lunch,
     Salad,
     Side,
-    Dessert
+    Dessert,
 }

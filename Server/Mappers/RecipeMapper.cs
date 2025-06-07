@@ -26,26 +26,6 @@ internal static class RecipeMapper
             EffortLevel = recipe.EffortLevel.MapToEnum<EntityEffortLevel>(),
         };
 
-    //private static Category ToDataContract(this EntityCategory category) => category switch
-    //{
-    //    EntityCategory.Starter => Category.Starter,
-    //    EntityCategory.Beverage => Category.Beverage,
-    //    EntityCategory.Main => Category.Main,
-    //    EntityCategory.Lunch => Category.Lunch,
-    //    EntityCategory.Salad => Category.Salad,
-    //    EntityCategory.Side => Category.Side,
-    //    EntityCategory.Dessert => Category.Dessert,
-    //    _ => throw new ArgumentException(nameof(category))
-    //};
-
-    //private static EffortLevel ToDataContract(this EntityEffortLevel effortLevel) => effortLevel switch
-    //{
-    //    EntityEffortLevel.Low => EffortLevel.Low,
-    //    EntityEffortLevel.Medium => EffortLevel.Medium,
-    //    EntityEffortLevel.High => EffortLevel.High,
-    //    _ => throw new ArgumentException(nameof(effortLevel))
-    //};
-
     internal static REnum MapToEnum<REnum>(this Enum inEnum)
         where REnum : struct, Enum
     {

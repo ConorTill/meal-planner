@@ -9,4 +9,4 @@ export default defineConfig({
     clean: false,
   },
   plugins: ["@hey-api/typescript"],
-})
+});

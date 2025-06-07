@@ -1,13 +1,12 @@
-import { useRef, type FormEvent } from "react";
-import { useCreateRecipeMutation } from "../hooks/mutations/useCreateRecipeMutation";
-import type { Category, EffortLevel } from "../api";
+import { useCreateRecipeMutation } from "../../hooks/mutations/useCreateRecipeMutation";
+import type { Category, EffortLevel } from "../../api";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
-import { Input } from "./ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { CATEGORIES, EFFORT_LEVELS } from "../lib/constants";
-import { Button } from "./ui/button";
-import { Spinner } from "./ui/Spinner";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Input } from "../ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { CATEGORIES, EFFORT_LEVELS } from "../../lib/constants";
+import { Button } from "../ui/button";
+import { Spinner } from "../ui/Spinner";
 
 type RecipeFormData = {
   name: string;
@@ -87,13 +86,15 @@ const CreateRecipeForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-36">
-          {isPending ? (
-            <Spinner size="small" className="text-primary-foreground" />
-          ) : (
-            "Create Recipe"
-          )}
-        </Button>
+        <div className="flex w-full justify-center">
+          <Button type="submit" className="w-36">
+            {isPending ? (
+              <Spinner size="small" className="text-primary-foreground" />
+            ) : (
+              "Create Recipe"
+            )}
+          </Button>
+        </div>
       </form>
     </Form>
   );

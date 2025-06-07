@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data;
 
-public sealed class MealPlannerDbContext(DbContextOptions<MealPlannerDbContext> options) : DbContext(options)
+public sealed class MealPlannerDbContext(DbContextOptions<MealPlannerDbContext> options)
+    : DbContext(options)
 {
     public DbSet<Recipe> Recipes { get; set; }
 

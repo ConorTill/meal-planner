@@ -12,7 +12,7 @@ export function useGetMealPlansQuery(): UseQueryResult<GetMealPlanResponse> {
       const response = await fetch('/api/meal-plans');
 
       if (!response.ok) {
-        throw new Error("GET meal plans failed: " + response);
+        throw new Error("GET meal plans failed: " + JSON.stringify(response));
       }
 
       return await response.json() as GetMealPlanResponse;

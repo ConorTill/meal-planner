@@ -1,6 +1,4 @@
-﻿using DataContracts.Common;
-
-namespace DataContracts.MealPlans;
+﻿namespace DataContracts.MealPlans;
 
 public sealed record GetMealPlanResponse
 {

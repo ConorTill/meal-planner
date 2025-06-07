@@ -1,5 +1,8 @@
 using System.Text.Json.Serialization;
+using Data;
+using Data.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Server.Endpoints;
 
 namespace Server;
@@ -18,6 +21,14 @@ internal static class ProgramConfiguration
         });
         builder.Services.Configure<JsonOptions>(options =>
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+        );
+
+        builder.Services.AddDbContext<MealPlannerDbContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("MealPlannerDbContext"), o =>
+            {
+                o.MapEnum<Category>("category");
+                o.MapEnum<EffortLevel>("effortLevel");
+            })
         );
     }
 
@@ -54,6 +65,7 @@ internal static class ProgramConfiguration
         app.UseStatusCodePages();
 
         app.MapMealPlanEndpoints();
+        app.MapRecipeEndpoints();
 
         //app.UseAuthentication();
         //app.UseAuthorization();

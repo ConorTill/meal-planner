@@ -1,0 +1,28 @@
+name: meal-planner
+
+services:
+  app:
+    build: .
+    container_name: meal-planner-app
+    depends_on:
+      - db
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=mealplanner;Username=postgres;Password=postgres"
+      ASPNETCORE_ENVIRONMENT: "Development"
+    ports:
+      - "5173:8080"
+  
+  db:
+    image: postgres:17.5
+    container_name: meal-planner-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: meal-planner
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:

@@ -2,10 +2,24 @@
 
 export type Category = "Starter" | "Beverage" | "Main" | "Lunch" | "Salad" | "Side" | "Dessert";
 
+export type CreateRecipeRequest = {
+  name?: string | null;
+  category?: Category;
+  effortLevel?: EffortLevel;
+};
+
+export type CreateRecipeResponse = {
+  id?: string;
+};
+
 export type EffortLevel = "Low" | "Medium" | "High";
 
 export type GetMealPlanResponse = {
   mealPlanItems: Array<MealPlanItem> | null;
+};
+
+export type GetRecipesResponse = {
+  recipes: Array<Recipe> | null;
 };
 
 export type MealPlanItem = {
@@ -34,6 +48,38 @@ export type GetApiMealPlansResponses = {
 };
 
 export type GetApiMealPlansResponse = GetApiMealPlansResponses[keyof GetApiMealPlansResponses];
+
+export type GetApiRecipesData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: "/api/recipes";
+};
+
+export type GetApiRecipesResponses = {
+  /**
+   * OK
+   */
+  200: GetRecipesResponse;
+};
+
+export type GetApiRecipesResponse = GetApiRecipesResponses[keyof GetApiRecipesResponses];
+
+export type PostApiRecipesData = {
+  body: CreateRecipeRequest;
+  path?: never;
+  query?: never;
+  url: "/api/recipes";
+};
+
+export type PostApiRecipesResponses = {
+  /**
+   * OK
+   */
+  200: CreateRecipeResponse;
+};
+
+export type PostApiRecipesResponse = PostApiRecipesResponses[keyof PostApiRecipesResponses];
 
 export type ClientOptions = {
   baseUrl: `${string}://${string}` | (string & {});

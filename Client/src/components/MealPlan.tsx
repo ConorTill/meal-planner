@@ -23,7 +23,7 @@ const WeatherComponent = () => {
           {data?.mealPlanItems &&
             data.mealPlanItems.map((item) => {
               return (
-                <TableRow key={item.date} className="transition-all duration-150 hover:bg-zinc-700">
+                <TableRow key={item.date} className="transition-all duration-150 hover:bg-zinc-600">
                   <TableRowItem>
                     {new Intl.DateTimeFormat("en-GB", { weekday: "long" }).format(
                       new Date(item.date),

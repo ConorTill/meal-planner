@@ -16,6 +16,8 @@ Open a command prompt with administrator privileges (Windows Key + R, type in cm
 
 In the command prompt, navigate to the directory to which you checked out the repository (example command: `cd C:\Users\your-name-here\source\repos\meal-planner`).
 
+NOTE: You may now be able to run `docker-compose up --build` to run the whole thing, including the database. If that works, skip the rest of the instructions. If that doesn't work, probably also skip the rest of the instructions because the image won't include the database and the thing won't work anyway. I'll get round to updating the instructions later.
+
 Now run the following command: `docker build . -t meal-planner`
 
 This will create a docker image containing everything required to run the web app and its backend API.

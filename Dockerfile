@@ -22,6 +22,11 @@ RUN dotnet restore "./Server/Server.csproj"
 COPY . .
 
 WORKDIR /src/Server
+
+RUN dotnet tool restore
+
+RUN dotnet ef migrations bundle --self-contained -r linux-x64 --output /app/publish/migrate
+
 RUN dotnet publish \
   -c Release \
   -o /app/publish \
@@ -36,4 +41,4 @@ COPY --from=build /app/publish .
 
 EXPOSE 80
 
-ENTRYPOINT ["dotnet", "Server.dll"]
+ENTRYPOINT ["sh","-c","./migrate && exec dotnet Server.dll"]

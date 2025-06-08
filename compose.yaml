@@ -5,9 +5,10 @@ services:
     build: .
     container_name: meal-planner-app
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
-      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=mealplanner;Username=postgres;Password=postgres"
+      ConnectionStrings__MealPlannerDbContext: "Host=db;Port=5432;Database=meal-planner;Username=postgres;Password=postgres"
       ASPNETCORE_ENVIRONMENT: "Development"
     ports:
       - "5173:8080"
@@ -23,6 +24,11 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
 
 volumes:
   pgdata:

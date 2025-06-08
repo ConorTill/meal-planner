@@ -5,7 +5,9 @@ const CreateRecipeCard = () => {
   return (
     <Card className="w-2xs">
       <CardHeader>
-        <CardTitle className="text-center text-2xl">Create a new recipe</CardTitle>
+        <CardTitle className="text-center text-2xl cursor-default select-none">
+          Create a new recipe
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <CreateRecipeForm />

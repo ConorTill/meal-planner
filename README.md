@@ -10,22 +10,12 @@ First, [download and install Docker Desktop](https://desktop.docker.com/win/main
 
 Next, open Docker Desktop. You might have to make a free account. If it opened and ran successfully you should be ready to run the app.
 
-### Build a Docker Image
+### Build and run the app
 
 Open a command prompt with administrator privileges (Windows Key + R, type in cmd and press Ctrl + Shift + Enter, or press the Windows Key to open the start menu, type in cmd to search and then right click Command Prompt -> Run as Administrator in the results).
 
 In the command prompt, navigate to the directory to which you checked out the repository (example command: `cd C:\Users\your-name-here\source\repos\meal-planner`).
 
-NOTE: You may now be able to run `docker-compose up --build` to run the whole thing, including the database. If that works, skip the rest of the instructions. If that doesn't work, probably also skip the rest of the instructions because the image won't include the database and the thing won't work anyway. I'll get round to updating the instructions later.
-
-Now run the following command: `docker build . -t meal-planner`
-
-This will create a docker image containing everything required to run the web app and its backend API.
-
-### Run the Image in a Container
-
-Finally, run this command: `docker run -d -p 5173:8080 meal-planner`
+Run the command `docker-compose up --build` to run the whole thing, including the database.
 
 If this ran successfully, congrats! You should now be able to navigate to http://localhost:5173 on your machine and see the default web page.
-
-Note that the port 5173 in the docker run command can be changed to any port you would prefer, it only changes what port you have to specify in the url. If you change it to 80 you won't need to specify a port at all, but it may require more advanced permissions on your machine.

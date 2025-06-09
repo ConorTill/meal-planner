@@ -1,5 +1,5 @@
 import { type ColumnDef } from "@tanstack/react-table";
-import type { Recipe } from "../../../api";
+import type { Recipe } from "../../api";
 
 export const columns: ColumnDef<Recipe>[] = [
   {

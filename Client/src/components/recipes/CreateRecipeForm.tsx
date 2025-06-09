@@ -7,19 +7,26 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { CATEGORIES, EFFORT_LEVELS } from "../../lib/constants";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/Spinner";
+import { toast } from "sonner";
 
 type RecipeFormData = {
   name: string;
-  category: Category;
-  effortLevel: EffortLevel;
+  category: Category | undefined;
+  effortLevel: EffortLevel | undefined;
 };
 
 const CreateRecipeForm = () => {
-  const { mutateAsync, isPending } = useCreateRecipeMutation();
-  const form = useForm<RecipeFormData>();
+  const form = useForm<RecipeFormData>({
+    defaultValues: { name: "", category: undefined, effortLevel: undefined },
+  });
+  const { mutate, isPending } = useCreateRecipeMutation(() => form.reset());
 
-  const onSubmit = async (data: RecipeFormData) => {
-    await mutateAsync({ name: data.name, category: data.category, effortLevel: data.effortLevel });
+  const onSubmit = (data: RecipeFormData) => {
+    if (data.name.trim() === "" || data.category === undefined || data.effortLevel === undefined) {
+      toast("Error creating recipe. Please ensure the form is completed.");
+      return;
+    }
+    mutate({ name: data.name, category: data.category, effortLevel: data.effortLevel });
   };
 
   return (

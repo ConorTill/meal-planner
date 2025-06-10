@@ -25,7 +25,7 @@ WORKDIR /src/Server
 
 RUN dotnet tool restore
 
-RUN dotnet ef migrations bundle --self-contained -r linux-x64 --output /app/publish/migrate
+RUN dotnet ef migrations bundle -r linux-x64 -o /app/publish/migrate
 
 RUN dotnet publish \
   -c Release \

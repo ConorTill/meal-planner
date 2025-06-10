@@ -1,0 +1,23 @@
+# fly.toml app configuration file generated for meal-planner-small-wave-8176 on 2025-06-10T23:50:56+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'meal-planner-small-wave-8176'
+primary_region = 'lhr'
+
+[env]
+ConnectionStrings__MealPlannerDbContext = "${ConnectionStrings__MealPlannerDbContext}"
+
+[build]
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  size = 'shared-cpu-1x'

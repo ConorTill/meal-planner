@@ -16,6 +16,8 @@ namespace Server.Endpoints
             var group = app.MapGroup("api/recipes").WithTags("Recipes");
             group.MapGet("", GetRecipes).WithDescription("Get all recipes");
             group.MapPost("", CreateRecipe).WithDescription("Create a recipe");
+            group.MapPut("{id:guid}", UpdateRecipe).WithDescription("Update a recipe");
+            group.MapPost("{id:guid}/delete", DeleteRecipe).WithDescription("Delete a recipe");
         }
 
         public static async Task<Ok<GetRecipesResponse>> GetRecipes(
@@ -49,6 +51,43 @@ namespace Server.Endpoints
             );
             await dbContext.SaveChangesAsync(cancellationToken);
             return TypedResults.Ok(new CreateRecipeResponse(result.Entity.Id));
+        }
+
+        public static async Task<Results<Ok, NotFound>> UpdateRecipe(
+            Guid id,
+            [FromBody] UpdateRecipeRequest request,
+            MealPlannerDbContext dbContext,
+            CancellationToken cancellationToken
+        )
+        {
+            var entity = dbContext.Recipes.FirstOrDefault(r => r.Id == id);
+
+            if (entity is null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            dbContext.Entry(entity).CurrentValues.SetValues(request);
+            await dbContext.SaveChangesAsync(cancellationToken);
+            return TypedResults.Ok();
+        }
+
+        public static async Task<Results<Ok, NotFound>> DeleteRecipe(
+            Guid id,
+            MealPlannerDbContext dbContext,
+            CancellationToken cancellationToken
+        )
+        {
+            var entity = dbContext.Recipes.FirstOrDefault(r => r.Id == id);
+
+            if (entity is null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            dbContext.Recipes.Remove(entity);
+            await dbContext.SaveChangesAsync(cancellationToken);
+            return TypedResults.Ok();
         }
     }
 }

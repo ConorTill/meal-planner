@@ -28,9 +28,16 @@ export type MealPlanItem = {
 };
 
 export type Recipe = {
+  id: string;
   name: string | null;
   category: Category;
   effortLevel: EffortLevel;
+};
+
+export type UpdateRecipeRequest = {
+  name?: string | null;
+  category?: Category;
+  effortLevel?: EffortLevel;
 };
 
 export type GetApiMealPlansData = {
@@ -80,6 +87,52 @@ export type PostApiRecipesResponses = {
 };
 
 export type PostApiRecipesResponse = PostApiRecipesResponses[keyof PostApiRecipesResponses];
+
+export type PutApiRecipesByIdData = {
+  body: UpdateRecipeRequest;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/recipes/{id}";
+};
+
+export type PutApiRecipesByIdErrors = {
+  /**
+   * Not Found
+   */
+  404: unknown;
+};
+
+export type PutApiRecipesByIdResponses = {
+  /**
+   * OK
+   */
+  200: unknown;
+};
+
+export type PostApiRecipesByIdDeleteData = {
+  body?: never;
+  path: {
+    id: string;
+  };
+  query?: never;
+  url: "/api/recipes/{id}/delete";
+};
+
+export type PostApiRecipesByIdDeleteErrors = {
+  /**
+   * Not Found
+   */
+  404: unknown;
+};
+
+export type PostApiRecipesByIdDeleteResponses = {
+  /**
+   * OK
+   */
+  200: unknown;
+};
 
 export type ClientOptions = {
   baseUrl: `${string}://${string}` | (string & {});

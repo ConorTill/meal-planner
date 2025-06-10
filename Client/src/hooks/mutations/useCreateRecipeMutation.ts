@@ -15,7 +15,7 @@ export function useCreateRecipeMutation(
         body: JSON.stringify(request),
       });
       if (!response.ok) {
-        throw new Error("POST recipes failed: " + JSON.stringify(response));
+        throw new Error("POST create recipes failed: " + JSON.stringify(response));
       }
       return (await response.json()) as CreateRecipeResponse;
     },

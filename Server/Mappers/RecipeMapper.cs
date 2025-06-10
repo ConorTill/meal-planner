@@ -12,6 +12,7 @@ internal static class RecipeMapper
     {
         return new Recipe
         {
+            Id = recipe.Id,
             Name = recipe.Name,
             Category = recipe.Category.MapToEnum<Category>(),
             EffortLevel = recipe.EffortLevel.MapToEnum<EffortLevel>(),

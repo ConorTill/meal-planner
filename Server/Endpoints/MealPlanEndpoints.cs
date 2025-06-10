@@ -26,6 +26,7 @@ internal static class MealPlanEndpoints
                         Date = DateOnly.FromDateTime(DateTime.UtcNow),
                         Recipe = new Recipe
                         {
+                            Id = Guid.NewGuid(),
                             Name = "Cheese and Bean Toastie",
                             Category = Category.Main,
                             EffortLevel = EffortLevel.Low,
@@ -36,6 +37,7 @@ internal static class MealPlanEndpoints
                         Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1)),
                         Recipe = new Recipe
                         {
+                            Id = Guid.NewGuid(),
                             Name = "Chicken Rice Bowl",
                             Category = Category.Main,
                             EffortLevel = EffortLevel.Medium,
@@ -46,6 +48,7 @@ internal static class MealPlanEndpoints
                         Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(2)),
                         Recipe = new Recipe
                         {
+                            Id = Guid.NewGuid(),
                             Name = "Chickpea Fish",
                             Category = Category.Main,
                             EffortLevel = EffortLevel.Medium,
@@ -56,6 +59,7 @@ internal static class MealPlanEndpoints
                         Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(3)),
                         Recipe = new Recipe
                         {
+                            Id = Guid.NewGuid(),
                             Name = "Chinese Tofu",
                             Category = Category.Main,
                             EffortLevel = EffortLevel.High,
@@ -66,6 +70,7 @@ internal static class MealPlanEndpoints
                         Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(4)),
                         Recipe = new Recipe
                         {
+                            Id = Guid.NewGuid(),
                             Name = "Crispy Shicken",
                             Category = Category.Main,
                             EffortLevel = EffortLevel.High,

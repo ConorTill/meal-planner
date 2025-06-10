@@ -72,6 +72,70 @@
           }
         }
       }
+    },
+    "/api/recipes/{id}": {
+      "put": {
+        "tags": [
+          "Recipes"
+        ],
+        "description": "Update a recipe",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRecipeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/recipes/{id}/delete": {
+      "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "description": "Delete a recipe",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -175,8 +239,29 @@
         "required": [
           "category",
           "effortLevel",
+          "id",
           "name"
         ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "effortLevel": {
+            "$ref": "#/components/schemas/EffortLevel"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateRecipeRequest": {
         "type": "object",
         "properties": {
           "name": {

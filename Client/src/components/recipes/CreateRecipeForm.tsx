@@ -1,6 +1,5 @@
-import { useCreateRecipeMutation } from "../../hooks/mutations/useCreateRecipeMutation";
 import type { Category, EffortLevel } from "../../api";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
@@ -9,29 +8,35 @@ import { Button } from "../ui/button";
 import { Spinner } from "../ui/Spinner";
 import { toast } from "sonner";
 
-type RecipeFormData = {
+export type RecipeFormData = {
   name: string;
   category: Category | undefined;
   effortLevel: EffortLevel | undefined;
 };
 
-const CreateRecipeForm = () => {
-  const form = useForm<RecipeFormData>({
-    defaultValues: { name: "", category: undefined, effortLevel: undefined },
-  });
-  const { mutate, isPending } = useCreateRecipeMutation(() => form.reset());
+interface RecipeFormProps {
+  onSubmit: SubmitHandler<RecipeFormData>;
+  buttonText?: string;
+  isPending?: boolean;
+  defaults?: RecipeFormData;
+}
 
-  const onSubmit = (data: RecipeFormData) => {
+const CreateRecipeForm = ({ onSubmit, buttonText, isPending, defaults }: RecipeFormProps) => {
+  const form = useForm<RecipeFormData>({
+    defaultValues: defaults ?? { name: "", category: undefined, effortLevel: undefined },
+  });
+
+  const onSubmitInternal = (data: RecipeFormData) => {
     if (data.name.trim() === "" || data.category === undefined || data.effortLevel === undefined) {
       toast("Error creating recipe. Please ensure the form is completed.");
       return;
     }
-    mutate({ name: data.name, category: data.category, effortLevel: data.effortLevel });
+    onSubmit(data);
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mx-auto">
+      <form onSubmit={form.handleSubmit(onSubmitInternal)} className="space-y-8 px-2 mx-auto">
         <FormField
           control={form.control}
           name="name"
@@ -96,9 +101,11 @@ const CreateRecipeForm = () => {
         <div className="flex w-full justify-center">
           <Button type="submit" className="w-36">
             {isPending ? (
-              <Spinner size="small" className="text-primary-foreground" />
+              <Spinner size="small" color="background" />
+            ) : buttonText ? (
+              buttonText
             ) : (
-              "Create Recipe"
+              "Submit"
             )}
           </Button>
         </div>

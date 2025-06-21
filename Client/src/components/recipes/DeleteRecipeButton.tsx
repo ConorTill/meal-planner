@@ -21,10 +21,17 @@ const DeleteRecipeButton = ({ id }: DeleteRecipeButtonProps) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => setOpen(!open)} variant="ghost" size="icon">
+      <Button
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen(!open);
+        }}
+        variant="ghost"
+        size="icon"
+      >
         <DeleteIcon />
       </Button>
-      <DialogContent className="w-fit">
+      <DialogContent onClick={(e) => e.stopPropagation()} className="w-fit">
         <DialogHeader>
           <DialogTitle>Delete Recipe</DialogTitle>
           <DialogDescription className="text-center">

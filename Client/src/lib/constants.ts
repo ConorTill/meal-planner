@@ -1,13 +1,5 @@
-import type { Category, EffortLevel } from "../api";
+import type { Course, Difficulty } from "../api";
 
-export const EFFORT_LEVELS: readonly EffortLevel[] = ["Low", "Medium", "High"];
+export const DIFFICULTY: readonly Difficulty[] = ["Easy", "Medium", "Hard"];
 
-export const CATEGORIES: readonly Category[] = [
-  "Starter",
-  "Beverage",
-  "Main",
-  "Lunch",
-  "Salad",
-  "Side",
-  "Dessert",
-];
+export const COURSE: readonly Course[] = ["Appetizer", "Main", "Dessert", "Snack", "Beverage"];

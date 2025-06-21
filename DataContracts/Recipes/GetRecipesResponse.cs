@@ -1,4 +1,4 @@
-﻿using DataContracts.Common;
+﻿using DataContracts.Common.Recipe;
 
 namespace DataContracts.Recipes;
 

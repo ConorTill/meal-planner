@@ -1,6 +1,9 @@
 using System.Text.Json.Serialization;
+using Adapters.Extensions;
+using Application.Extensions;
+using Application.Models.Recipe.Enums;
+using Application.Ports;
 using Data;
-using Data.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Endpoints;
@@ -23,16 +26,21 @@ internal static class ProgramConfiguration
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
         );
 
-        builder.Services.AddDbContext<MealPlannerDbContext>(options =>
-            options.UseNpgsql(
-                builder.Configuration.GetConnectionString("MealPlannerDbContext"),
-                o =>
-                {
-                    o.MapEnum<Category>("category");
-                    o.MapEnum<EffortLevel>("effortLevel");
-                }
+        builder
+            .Services.AddDbContext<MealPlannerDbContext>(options =>
+                options.UseNpgsql(
+                    builder.Configuration.GetConnectionString("MealPlannerDbContext"),
+                    o =>
+                    {
+                        o.MapEnum<Course>("course");
+                        o.MapEnum<Difficulty>("difficulty");
+                    }
+                )
             )
-        );
+            .AddScoped<IDbContext>(sp => sp.GetRequiredService<MealPlannerDbContext>());
+
+        builder.AddHandlers();
+        builder.AddAdapters();
     }
 
     internal static void RegisterMiddleware(this WebApplication app)

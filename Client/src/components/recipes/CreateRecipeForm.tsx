@@ -1,17 +1,17 @@
-import type { Category, EffortLevel } from "../../api";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { CATEGORIES, EFFORT_LEVELS } from "../../lib/constants";
+import { COURSE, DIFFICULTY } from "../../lib/constants";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/Spinner";
 import { toast } from "sonner";
+import type { Course, Difficulty } from "../../api";
 
 export type RecipeFormData = {
-  name: string;
-  category: Category | undefined;
-  effortLevel: EffortLevel | undefined;
+  title: string;
+  course: Course | undefined;
+  difficulty: Difficulty | undefined;
 };
 
 interface RecipeFormProps {
@@ -23,11 +23,11 @@ interface RecipeFormProps {
 
 const CreateRecipeForm = ({ onSubmit, buttonText, isPending, defaults }: RecipeFormProps) => {
   const form = useForm<RecipeFormData>({
-    defaultValues: defaults ?? { name: "", category: undefined, effortLevel: undefined },
+    defaultValues: defaults ?? { title: "", course: undefined, difficulty: undefined },
   });
 
   const onSubmitInternal = (data: RecipeFormData) => {
-    if (data.name.trim() === "" || data.category === undefined || data.effortLevel === undefined) {
+    if (data.title.trim() === "" || data.course === undefined || data.difficulty === undefined) {
       toast("Error creating recipe. Please ensure the form is completed.");
       return;
     }
@@ -39,10 +39,10 @@ const CreateRecipeForm = ({ onSubmit, buttonText, isPending, defaults }: RecipeF
       <form onSubmit={form.handleSubmit(onSubmitInternal)} className="space-y-8 px-2 mx-auto">
         <FormField
           control={form.control}
-          name="name"
+          name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input placeholder="Name your recipe" {...field} />
               </FormControl>
@@ -52,19 +52,19 @@ const CreateRecipeForm = ({ onSubmit, buttonText, isPending, defaults }: RecipeF
         />
         <FormField
           control={form.control}
-          name="category"
+          name="course"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Category</FormLabel>
+              <FormLabel>Course</FormLabel>
               <FormControl>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Choose a category" />
+                    <SelectValue placeholder="Choose a course" />
                   </SelectTrigger>
                   <SelectContent>
-                    {CATEGORIES.map((category) => (
-                      <SelectItem key={category} value={category}>
-                        {category}
+                    {COURSE.map((course) => (
+                      <SelectItem key={course} value={course}>
+                        {course}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -76,19 +76,19 @@ const CreateRecipeForm = ({ onSubmit, buttonText, isPending, defaults }: RecipeF
         />
         <FormField
           control={form.control}
-          name="effortLevel"
+          name="difficulty"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Effort Level</FormLabel>
               <FormControl>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Pick an effort level" />
+                    <SelectValue placeholder="Pick a difficulty" />
                   </SelectTrigger>
                   <SelectContent>
-                    {EFFORT_LEVELS.map((effortLevel) => (
-                      <SelectItem key={effortLevel} value={effortLevel}>
-                        {effortLevel}
+                    {DIFFICULTY.map((difficulty) => (
+                      <SelectItem key={difficulty} value={difficulty}>
+                        {difficulty}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -1,0 +1,218 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "cuisine": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "course": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "appetizer",
+        "main",
+        "dessert",
+        "snack",
+        "beverage"
+      ]
+    },
+    "difficulty": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ]
+    },
+    "preparationTime": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "cookingTime": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "imageUrl": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "servings": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "quantity",
+          "unit",
+          "name",
+          "note"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "instructions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "nutrition": {
+      "type": "object",
+      "properties": {
+        "calories": {
+          "type": "number"
+        },
+        "caloriesUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fat": {
+          "type": "number"
+        },
+        "fatUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "saturatedFat": {
+          "type": "number"
+        },
+        "saturatedFatUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "carbohydrates": {
+          "type": "number"
+        },
+        "carbohydratesUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "protein": {
+          "type": "number"
+        },
+        "proteinUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "fibre": {
+          "type": "number"
+        },
+        "fibreUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sugars": {
+          "type": "number"
+        },
+        "sugarsUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "salt": {
+          "type": "number"
+        },
+        "saltUnit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "calories",
+        "caloriesUnit",
+        "fat",
+        "fatUnit",
+        "saturatedFat",
+        "saturatedFatUnit",
+        "carbohydrates",
+        "carbohydratesUnit",
+        "protein",
+        "proteinUnit",
+        "fibre",
+        "fibreUnit",
+        "sugars",
+        "sugarsUnit",
+        "salt",
+        "saltUnit"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "cuisine",
+    "course",
+    "difficulty",
+    "preparationTime",
+    "cookingTime",
+    "imageUrl",
+    "servings",
+    "ingredients",
+    "instructions",
+    "nutrition"
+  ],
+  "additionalProperties": false
+}

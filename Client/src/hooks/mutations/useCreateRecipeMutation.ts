@@ -15,14 +15,14 @@ export function useCreateRecipeMutation(
         body: JSON.stringify(request),
       });
       if (!response.ok) {
-        throw new Error("POST create recipes failed: " + JSON.stringify(response));
+        throw new Error("POST create recipe failed: " + JSON.stringify(response));
       }
       return (await response.json()) as CreateRecipeResponse;
     },
     onSuccess: (_response, request) => {
       onSuccess?.();
       queryClient.invalidateQueries({ queryKey: getRecipesQueryKey() });
-      toast(`Added ${request.name} to the recipe list.`);
+      toast(`Added ${request.title} to the recipe list.`);
     },
     onError: (error) => {
       toast(`Failed to create recipe. Error: ${JSON.stringify(error)}`);

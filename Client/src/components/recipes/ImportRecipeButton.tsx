@@ -21,7 +21,7 @@ const ImportRecipeButton = ({ buttonClassName }: ImportRecipeButtonProps) => {
       <DialogContent className="w-fit">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl cursor-default select-none">
-            Edit Recipe
+            Import Recipe
           </DialogTitle>
         </DialogHeader>
         <VisuallyHidden>

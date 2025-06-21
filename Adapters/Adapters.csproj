@@ -11,9 +11,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="RecipeProcessing\recipe_schema.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>

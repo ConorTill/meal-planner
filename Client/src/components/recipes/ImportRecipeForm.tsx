@@ -33,7 +33,7 @@ const ImportRecipeForm = ({ onSubmit, isPending }: ImportRecipeFormProps) => {
           name="url"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>URL</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your recipe URL here" {...field} />
               </FormControl>

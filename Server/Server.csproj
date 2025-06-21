@@ -25,6 +25,13 @@
     <ProjectReference Include="..\DataContracts\DataContracts.csproj" />
     <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Adapters\RecipeProcessing\recipe_schema.json">
+      <Link>recipe_schema.json</Link>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Target Name="OpenApi" AfterTargets="Build" Condition="$(Configuration)=='Debug'">
     <Exec Command="dotnet tool restore" WorkingDirectory="$(ProjectDir)" />
     <Exec

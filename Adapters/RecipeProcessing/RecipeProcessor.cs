@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json;
 using Application.Models.Recipe;
 using Application.Ports;
 using OpenAI.Chat;
@@ -17,9 +15,7 @@ public class RecipeProcessor : IRecipeProcessor
         var responseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
             "recipe_schema",
             BinaryData.FromBytes(
-                File.ReadAllBytes(
-                    Path.Combine("..", "Adapters", "RecipeProcessing", "recipe_schema.json")
-                )
+                File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "recipe_schema.json"))
             ),
             jsonSchemaIsStrict: true
         );

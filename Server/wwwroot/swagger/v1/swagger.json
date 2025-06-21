@@ -5,26 +5,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/meal-plans": {
-      "get": {
-        "tags": [
-          "Meal Plans"
-        ],
-        "summary": "Get a meal plan",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetMealPlanResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/recipes": {
       "get": {
         "tags": [
@@ -74,6 +54,38 @@
       }
     },
     "/api/recipes/{id}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "description": "Get a recipe by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRecipeResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Recipes"
@@ -110,6 +122,36 @@
         }
       }
     },
+    "/api/recipes/import": {
+      "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "description": "Import a recipe from a URL",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportRecipeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportRecipeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/recipes/{id}/delete": {
       "post": {
         "tags": [
@@ -140,30 +182,28 @@
   },
   "components": {
     "schemas": {
-      "Category": {
+      "Course": {
         "enum": [
-          "Starter",
-          "Beverage",
+          "Appetizer",
           "Main",
-          "Lunch",
-          "Salad",
-          "Side",
-          "Dessert"
+          "Dessert",
+          "Snack",
+          "Beverage"
         ],
         "type": "string"
       },
       "CreateRecipeRequest": {
         "type": "object",
         "properties": {
-          "name": {
+          "title": {
             "type": "string",
             "nullable": true
           },
-          "category": {
-            "$ref": "#/components/schemas/Category"
+          "course": {
+            "$ref": "#/components/schemas/Course"
           },
-          "effortLevel": {
-            "$ref": "#/components/schemas/EffortLevel"
+          "difficulty": {
+            "$ref": "#/components/schemas/Difficulty"
           }
         },
         "additionalProperties": false
@@ -178,26 +218,19 @@
         },
         "additionalProperties": false
       },
-      "EffortLevel": {
+      "Difficulty": {
         "enum": [
-          "Low",
+          "Easy",
           "Medium",
-          "High"
+          "Hard"
         ],
         "type": "string"
       },
-      "GetMealPlanResponse": {
-        "required": [
-          "mealPlanItems"
-        ],
+      "GetRecipeResponse": {
         "type": "object",
         "properties": {
-          "mealPlanItems": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MealPlanItem"
-            },
-            "nullable": true
+          "recipe": {
+            "$ref": "#/components/schemas/Recipe"
           }
         },
         "additionalProperties": false
@@ -218,27 +251,28 @@
         },
         "additionalProperties": false
       },
-      "MealPlanItem": {
-        "required": [
-          "date",
-          "recipe"
-        ],
+      "ImportRecipeRequest": {
         "type": "object",
         "properties": {
-          "date": {
+          "url": {
             "type": "string",
-            "format": "date"
-          },
-          "recipe": {
-            "$ref": "#/components/schemas/Recipe"
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "Recipe": {
+      "ImportRecipeResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Ingredient": {
         "required": [
-          "category",
-          "effortLevel",
           "id",
           "name"
         ],
@@ -252,11 +286,179 @@
             "type": "string",
             "nullable": true
           },
-          "category": {
-            "$ref": "#/components/schemas/Category"
+          "quantity": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
           },
-          "effortLevel": {
-            "$ref": "#/components/schemas/EffortLevel"
+          "unit": {
+            "type": "string",
+            "nullable": true
+          },
+          "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "recipeId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Nutrition": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "calories": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "caloriesUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "fat": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "fatUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "saturatedFat": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "saturatedFatUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "carbohydrates": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "carbohydratesUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "sugars": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "sugarsUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "fibre": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "fibreUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "protein": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "proteinUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "salt": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "saltUnit": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Recipe": {
+        "required": [
+          "description",
+          "id",
+          "ingredients",
+          "instructions",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Ingredient"
+            },
+            "nullable": true
+          },
+          "instructions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "cuisine": {
+            "type": "string",
+            "nullable": true
+          },
+          "course": {
+            "$ref": "#/components/schemas/Course"
+          },
+          "difficulty": {
+            "$ref": "#/components/schemas/Difficulty"
+          },
+          "preparationTime": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "cookingTime": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "servings": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nutrition": {
+            "$ref": "#/components/schemas/Nutrition"
           }
         },
         "additionalProperties": false
@@ -264,15 +466,15 @@
       "UpdateRecipeRequest": {
         "type": "object",
         "properties": {
-          "name": {
+          "title": {
             "type": "string",
             "nullable": true
           },
-          "category": {
-            "$ref": "#/components/schemas/Category"
+          "course": {
+            "$ref": "#/components/schemas/Course"
           },
-          "effortLevel": {
-            "$ref": "#/components/schemas/EffortLevel"
+          "difficulty": {
+            "$ref": "#/components/schemas/Difficulty"
           }
         },
         "additionalProperties": false

@@ -1,12 +1,13 @@
-﻿using Data.Configuration;
-using Data.Entities;
-using Data.Entities.Enums;
+﻿using Application.Models.Recipe;
+using Application.Ports;
+using Data.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data;
 
 public sealed class MealPlannerDbContext(DbContextOptions<MealPlannerDbContext> options)
-    : DbContext(options)
+    : DbContext(options),
+        IDbContext
 {
     public DbSet<Recipe> Recipes { get; set; }
 

@@ -1,5 +1,5 @@
-﻿using DataContracts.Common.Enums;
+﻿using DataContracts.Common.Recipe.Enums;
 
 namespace DataContracts.Recipes;
 
-public sealed record CreateRecipeRequest(string Name, Category Category, EffortLevel EffortLevel);
+public sealed record CreateRecipeRequest(string Title, Course Course, Difficulty Difficulty);

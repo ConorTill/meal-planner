@@ -17,7 +17,14 @@ const EditRecipeButton = ({ recipe }: EditRecipeButtonProps) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => setOpen(!open)} variant="ghost" size="icon">
+      <Button
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen(!open);
+        }}
+        variant="ghost"
+        size="icon"
+      >
         <EditIcon />
       </Button>
       <DialogContent className="w-fit">
@@ -34,9 +41,9 @@ const EditRecipeButton = ({ recipe }: EditRecipeButtonProps) => {
           buttonText="Update Recipe"
           isPending={isPending}
           defaults={{
-            name: recipe.name ?? "",
-            category: recipe.category,
-            effortLevel: recipe.effortLevel,
+            title: recipe.title ?? "",
+            course: recipe.course,
+            difficulty: recipe.difficulty,
           }}
         />
       </DialogContent>

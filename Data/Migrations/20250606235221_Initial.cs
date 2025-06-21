@@ -1,5 +1,5 @@
 ﻿using System;
-using Data.Entities.Enums;
+using Application.Models.Recipe.Enums;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -26,8 +26,8 @@ namespace Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Category = table.Column<Category>(type: "category", nullable: false),
-                    EffortLevel = table.Column<EffortLevel>(
+                    Category = table.Column<Course>(type: "category", nullable: false),
+                    EffortLevel = table.Column<Difficulty>(
                         type: "\"effortLevel\"",
                         nullable: false
                     ),

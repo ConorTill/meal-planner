@@ -18,6 +18,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.4" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Adapters\Adapters.csproj" />
     <ProjectReference Include="..\Client\Client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>

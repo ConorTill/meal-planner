@@ -1,20 +1,23 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import type { Recipe } from "../../api";
 import DeleteRecipeButton from "../recipes/DeleteRecipeButton";
-import EditRecipeButton from "../recipes/EditRecipeButton";
 
 export const columns: ColumnDef<Recipe>[] = [
   {
-    accessorKey: "name",
+    accessorKey: "title",
     header: "Name",
   },
   {
-    accessorKey: "category",
-    header: "Category",
+    accessorKey: "course",
+    header: "Course",
   },
   {
-    accessorKey: "effortLevel",
-    header: "Effort Level",
+    accessorKey: "difficulty",
+    header: "Difficulty",
+  },
+  {
+    accessorKey: "cuisine",
+    header: "Cuisine",
   },
   {
     id: "actions",
@@ -23,7 +26,7 @@ export const columns: ColumnDef<Recipe>[] = [
 
       return (
         <>
-          <EditRecipeButton recipe={row.original} />
+          {/* <EditRecipeButton recipe={row.original} /> */}
           <DeleteRecipeButton id={recipe.id} />
         </>
       );
